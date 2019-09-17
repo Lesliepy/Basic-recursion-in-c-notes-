@@ -7,3 +7,6 @@ Primitive recursive functions:
   2.Indirect
   
 Non-primitive recursive functions
+
+Definition of non-primitive recursion:
+A recursive function which defines it by the function itself.For example,Ackermann fuction.
