@@ -1,0 +1,33 @@
+//Another examples are welcomed!!
+
+
+
+//Factorial function
+int Factorial(int n){
+    if (n<2)
+        return 1;
+    return n*Factorial(n-1);
+    
+    
+
+}//Factorial function
+
+//Fabonacci sequence
+int Fabonacci(int index){
+    if (index==0)
+        return 0;
+    if (index==1)
+        return 1;
+    return Fabonacci(index-1)+Fabonacci(index-2);
+
+}
+
+
+
+
+//Reverse number
+int ReverseInt(int index){
+    if(index<10)
+        return index;
+    return (index%10)*pow(10,floor(log10(index)))+ReverseInt(index/10);
+}
