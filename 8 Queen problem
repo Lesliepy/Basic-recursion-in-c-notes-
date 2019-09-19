@@ -1,0 +1,59 @@
+//A very typical example of recursion and backtracking--eight queen problem!!!!!!
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#define MAX 8
+
+int Queen[8];
+int count=0;
+int Check(int,int);
+int Put(int);
+void Queen_Print();
+int main()
+{
+    Put(0);
+    return 0;
+}
+
+//Place the queen
+int Put(int x){
+    int i;
+//When all the arrays in a line can't satisfy the requirement,the for loop will achieve the "backtracing"
+    for(i=0;i<MAX;i++){
+        if(Check(x,i)){
+            Queen[x]=i;
+            if(x==MAX-1){
+                count++;
+                Queen_Print();
+            }
+            else
+                Put(x+1);
+        }
+    }
+}
+
+//Check whether a position will be attacked or not
+int Check(int row,int column){
+    int i;
+    for(i=0;i<row;i++){
+        if(column==Queen[i]||(abs(column-row)==abs(Queen[i]-i))){
+            return 0;
+        }
+    }
+    return 1;
+}
+
+void Queen_Print(){
+    int i,j;
+    printf("Number %d",count);
+    printf("\n");
+    for(i=0;i<MAX;i++){
+        for(j=0;j<MAX;j++){
+            if(j==Queen[i])
+                printf("# ");
+            else
+                printf(". ");
+        }
+        printf("\n");
+    }
+}
