@@ -1,0 +1,145 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int info;
+    struct node *next;
+}Node;
+Node*head=NULL;
+Node*tail=NULL;
+Node*Create();
+void print(Node*);
+void CreateHeadAndTail(Node*);
+void AddAtTail(Node*);
+void AddAtHead(Node*);
+Node*Find(int);
+void AddAfter(Node*,int);
+void addBefore(Node*,int);
+void DeleteHead();
+void DeleteTail();
+void DeleteOneElement(int);
+void Delete(int);
+
+Node*Create(){
+    Node *p=(Node*)malloc(sizeof(Node));
+    if(p){
+        printf("Input the value:");
+        scanf("%d",&(p->info));
+        p->next=NULL;
+    }
+    return p;
+}
+
+void AddAtHead(Node*p){
+    if(head==NULL)
+        head=tail=p;
+    else{
+        if(p){
+            p->next=head;
+            head=p;
+        }
+    }
+}
+void AddAtTail(Node*p){
+    if(p!=NULL){
+        tail->next=p;
+        tail=p;
+
+    }
+}
+void print(Node*list){
+    while(list!=NULL){
+        printf("%d",list->info);
+        if(list->next!=NULL){
+            printf("->");
+        }
+        list=list->next;
+    }
+}
+Node*Find(int data){
+    Node*start=head->next;
+    if(head->info==data)
+        return head;
+
+    while(start!=NULL){
+
+        if(start->info=data){
+
+            return start;
+            }
+        start=start->next;
+
+
+    }
+
+    print("Cannot find");
+    return NULL;
+
+}
+void AddAfter(Node*out,int data){
+    if(out==tail)
+        AddAtTail(out);
+    Node*in=Find(data);
+
+    if((out!=NULL)&&(in!=NULL)){
+        out->next=in->next;
+        in->next=out;
+
+
+    }
+}
+void AddBefore(Node*out,int data){
+    Node*in=Find(data);
+    printf("%d\n",in->info);
+    Node*tmp=head;
+    printf("%d\n",in->info);
+    out->next=in;
+    printf("%d\n",in->info);
+    while(1){
+        if(tmp->next==in){
+            tmp->next=out;
+            break;}
+        tmp=tmp->next;
+    }
+
+}
+void DeleteHead(){
+    Node*tmp;
+    tmp=head->next;
+    head->next=NULL;
+    head=tmp;
+    printf("%d\n",tmp->info);
+
+}
+void DeleteTail(){
+    Node*tmp;
+    tmp=head;
+    while(tmp->next!=tail){
+        tmp=tmp->next;
+    }
+    tmp->next=NULL;
+    tail=tmp;
+}
+void DeleteOneElement(int data){
+    Node*target=Find(data);
+    Node*tmp=head;
+    printf("target %d\n",target->info);
+    while(tmp->next!=target){
+        tmp=tmp->next;
+
+    }
+    printf("tmp %d\n",tmp->info);
+    tmp->next=target->next;
+
+    target->next=NULL;
+}
+void Delete(int data){
+    Node*target=Find(data);
+    if(target==head)
+        DeleteHead();
+    else if (data==tail->info)
+        DeleteTail();
+    else
+        DeleteOneElement(data);
+}
