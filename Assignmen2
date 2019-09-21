@@ -1,0 +1,104 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package exercise;
+import java.io.PrintStream;
+import java.util.*;
+/**
+ *
+ * @author asus
+ */
+public class FutureValue {
+
+    /**
+     * @param args the command line arguments
+     */
+    
+    public static void main(String[] args) {
+        Scanner keyboard =new Scanner(System.in);
+        double principal,interest_Rate;
+        int timeSpan,period;
+        
+        //Get the value of the principal
+        System.out.println("Input Principal [$10000.00 - $109700.00]:");
+        principal=keyboard.nextDouble();
+        while((principal<10000.00)||(principal>109700.00)){
+            System.out.println("Invalid Peincipal, please enter again.");
+            principal=keyboard.nextDouble();   
+        }
+        
+        //Get the value of the interest rate
+        System.out.println("Input Annual Interest Rate [1.0% - 10.0%]:");
+        interest_Rate=keyboard.nextDouble();
+        while((interest_Rate<1.0)||(interest_Rate>10.0)){
+            System.out.println("Invalid Annual Interest Rate, please enter again.");
+            interest_Rate=keyboard.nextDouble();   
+        }
+        
+        //Get the value of the timesapn
+        System.out.println("Input Timespan [2 - 10 years]:");
+        timeSpan=keyboard.nextInt();
+        while((timeSpan<2)||(timeSpan>10)){
+            System.out.println("Invalid TimeSpan, please enter again.");
+            timeSpan=keyboard.nextInt();
+        }
+        
+        //Get the value of the compounding period
+        System.out.println("Input Compounding Period [1, 6 or 12 months]:");
+        period=keyboard.nextInt();
+        while(!((period==1)||(period==6)||(period==12))){
+            System.out.println("Invalid Compounding Period, please enter again.");
+            period=keyboard.nextInt();
+        }
+        
+        int freq=12/period;
+        int printJudge=(timeSpan*12/period);
+        double real_Rate=interest_Rate/100;
+        double firstValue,secondValue,finalValue;
+        firstValue=principal*(1+real_Rate/freq);
+        secondValue=principal*(1+real_Rate/freq)*(1+real_Rate/freq);
+        //compute the value of the final money
+        int i;
+        finalValue=principal;
+        for(i=0;i<freq*timeSpan;i++){
+            finalValue*=(1+real_Rate/freq);
+        }
+        
+        if(printJudge<=2){
+            System.out.format("Future Value after %d months : %.2f\n",period,firstValue);
+            System.out.print("Future Value at the end: ");
+            PrintStream format = System.out.format("%.2f\n",finalValue);
+        }
+        if(printJudge==3){
+            System.out.format("Future Value after %d months : %.2f\n",period,firstValue);
+            System.out.format("Future Value after %d months : %.2f\n",period*2,secondValue);
+            System.out.print("Future Value at the end: ");
+            PrintStream format = System.out.format("%.2f\n",finalValue);
+        }
+        if(printJudge>3){
+            System.out.format("Future Value after %d months : %.2f\n",period,firstValue);
+            System.out.format("Future Value after %d months : %.2f\n",period*2,secondValue);
+            System.out.println("...");
+            System.out.print("Future Value at the end: ");
+            PrintStream format = System.out.format("%.2f\n",finalValue);
+        }
+        
+        //Compute the time to achieve the requirement
+        double two_Time,three_Time,four_Time;
+        two_Time=(Math.log(2)/(freq*(Math.log(1+real_Rate/freq))));
+        three_Time=(Math.log(3)/(freq*(Math.log(1+real_Rate/freq))));
+        four_Time=(Math.log(4)/(freq*(Math.log(1+real_Rate/freq))));
+        System.out.print("Time to obtain asset x2: ");
+        PrintStream format = System.out.format("%.2f\n",two_Time);
+        System.out.format("Time to obtain asset x3: %.2f\n",three_Time);
+        System.out.format("Time to obtain asset x4: %.2f\n",four_Time);
+        
+        
+            
+        
+        
+    }
+    
+}
